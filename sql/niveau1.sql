@@ -34,3 +34,11 @@ SELECT
 FROM 'data/olist/olist_orders_dataset.csv'
 GROUP BY order_status
 ORDER BY nb_commandes DESC;
+
+-- Exercice 5 : nombre de commandes par mois
+SELECT
+    date_trunc('month', order_purchase_timestamp)::DATE AS mois,
+    COUNT(*) AS nb_orders
+FROM 'data/olist/olist_orders_dataset.csv'
+GROUP BY mois
+ORDER BY mois;
