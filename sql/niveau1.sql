@@ -42,3 +42,22 @@ SELECT
 FROM 'data/olist/olist_orders_dataset.csv'
 GROUP BY mois
 ORDER BY mois;
+
+-- Exercice 7 : chiffre d'affaires par catégorie de produit (top 10)
+SELECT
+    p.product_category_name,
+    ROUND(SUM(oi.price), 2) AS chiffre_affaires
+FROM 'data/olist/olist_order_items_dataset.csv' AS oi
+INNER JOIN 'data/olist/olist_products_dataset.csv' AS p
+    ON oi.product_id = p.product_id
+GROUP BY p.product_category_name
+ORDER BY chiffre_affaires DESC
+LIMIT 10;
+
+-- Verification articles without categories
+
+SELECT COUNT(*) AS nb_articles_sans_categorie
+FROM 'data/olist/olist_order_items_dataset.csv' AS oi
+INNER JOIN 'data/olist/olist_products_dataset.csv' AS p
+    ON oi.product_id = p.product_id
+WHERE p.product_category_name IS NULL;
